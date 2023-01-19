@@ -1,11 +1,14 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class App {
     public static void main(String[] args) throws Exception {
-        System.out.println("Inside main"); // soni
-        App a = new App();
-        a.userInput();
+
+        App todo = new App();
+        todo.toDoImpl();
     }
 
     /*
@@ -13,35 +16,44 @@ public class App {
      * 2. function behavior:- takes user input for tasks to be done
      * 3. tasks:- add, show, exit --(edit, delete)
      */
+    private static Logger LOGGER = Logger.getLogger(App.class.getName());
 
-    public void userInput() {
-        System.out.println("Inside userInput");
-        boolean runLoop = true;
+    public void toDoImpl() {
+
+        LOGGER.log(Level.INFO, "Inside toDoImpl method");
+        // boolean runLoop = true;
         ArrayList<String> arr = new ArrayList<String>();
 
-        while (runLoop) {
+        while (true) {
             System.out.print("Enter a task from add, show, exit: ");
-            Scanner sc = new Scanner(System.in);
+
+            Scanner userScanner = new Scanner(System.in);
             // String s = sc.nextLine();
 
-            String s = sc.nextLine();
-            if (s.equals("add")) {
-                System.out.print("Enter a task to add : ");
-                String s1 = sc.nextLine();
+            String userAction = userScanner.nextLine();
+            if (userAction.equals("add")) {
+                System.out.println("Enter a task to add : ");
+
+                String userInput = userScanner.nextLine();
                 // ArrayList arr = new ArrayList<>();
-                arr.add(s1);
-                System.out.println("user has entered  : " + s1);
-            } else if (s.equals("show")) {
+                arr.add(userInput);
+
+                LOGGER.log(Level.INFO, "user has entered  : " + userInput);
+            } else if (userAction.equals("show")) {
                 System.out.println("array size " + arr.size());
                 for (int i = 0; i < arr.size(); i++) {
                     System.out.println(arr.get(i));
+                    LOGGER.log(Level.INFO, "Inside  array loop ");
+
                 }
 
-            } else if (s.equals("exit")) {
-                runLoop = false;
-                System.out.println("exit " + runLoop);
+            } else if (userAction.equals("exit")) {
+                LOGGER.log(Level.WARNING, "Exiting from loop");
+                break;
+
             } else {
-                System.out.println("Please enter correct input");
+                LOGGER.log(Level.WARNING, "Please enter correct input");
+
             }
 
         }
